@@ -4,22 +4,24 @@ import css from './Notes.module.css';
 import { useState } from 'react';
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { useDebounce } from 'use-debounce';
-import Pagination from '../../components/Pagination/Pagination';
-import NoteList from '../../components/NoteList/NoteList';
-import Modal from '../../components/Modal/Modal';
-import NoteForm from '../../components/NoteForm/NoteForm';
-import { fetchNotes } from '../../lib/api';
-import SearchBox from '../../components/SearchBox/SearchBox';
+import Pagination from '../../../../components/Pagination/Pagination';
+import NoteList from '../../../../components/NoteList/NoteList';
+import Modal from '../../../../components/Modal/Modal';
+import NoteForm from '../../../../components/NoteForm/NoteForm';
+import { fetchNotes } from '../../../../lib/api';
+import SearchBox from '../../../../components/SearchBox/SearchBox';
 
 interface NotesClientProps {
-    initialPage: number,
-    initialQuery: string,
+  initialPage: number,
+  initialQuery: string,
+  initalTag: string | undefined
 }
 
-export default function NotesClient({ initialPage = 1, initialQuery = '' }: NotesClientProps) {
+export default function NotesClient({ initialPage = 1, initialQuery = '', initalTag = undefined }: NotesClientProps) {
   const [page, setPage] = useState(initialPage);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>(initialQuery);
+  const [tag] = useState<string | undefined>(initalTag)
 
   const [debouncedQuery] = useDebounce(searchQuery, 500);
 
@@ -30,8 +32,8 @@ export default function NotesClient({ initialPage = 1, initialQuery = '' }: Note
 
 
   const { data, isLoading, isError, isSuccess } = useQuery({
-    queryKey: ['notes', page, debouncedQuery],
-    queryFn: () => fetchNotes(debouncedQuery, page),
+    queryKey: ['notes', page, debouncedQuery, tag],
+    queryFn: () => fetchNotes(debouncedQuery, page, tag),
     placeholderData: keepPreviousData,
     refetchOnMount: false,
   });

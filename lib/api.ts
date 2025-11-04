@@ -8,7 +8,7 @@ interface NoteResponse {
 
 const TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN
 
-export async function fetchNotes(search: string, page: number): Promise<NoteResponse> {
+export async function fetchNotes(search: string, page: number, tag?: string): Promise<NoteResponse> {
     const url = 'https://notehub-public.goit.study/api/notes'
     const options = {
       headers: {
@@ -18,7 +18,8 @@ export async function fetchNotes(search: string, page: number): Promise<NoteResp
       params: {
           search: search,
           page: page,
-          perPage: 12
+          perPage: 12,
+          tag: tag
       }
     }
 
