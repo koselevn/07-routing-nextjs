@@ -26,7 +26,7 @@ export default async function Notes({ params }: NotesProps) {
 
   return (
     <HydrationBoundary state={dehydrateState}>
-      <NotesClient initialPage={page} initialQuery={query} initalTag={actualTag} />
+      <NotesClient initialPage={page} initialQuery={query} initialTag={actualTag} />
     </HydrationBoundary>
   );
 }

@@ -13,8 +13,6 @@ interface NotePreviewProps {
 
 export default function NotePreviewClient({ id }: NotePreviewProps) {
     const router = useRouter()
-
-    const [, setIsOpen] = useState(true);
     const {data, isSuccess, isLoading, isError, error } = useQuery({
         queryKey: ["NotePreview", id],
         queryFn: () => fetchNoteById(id),
@@ -23,7 +21,7 @@ export default function NotePreviewClient({ id }: NotePreviewProps) {
     })
 
     function onClose() {
-        setIsOpen(false);
+        router.back()
     }
 
     return (

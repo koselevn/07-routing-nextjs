@@ -14,14 +14,14 @@ import SearchBox from '../../../../components/SearchBox/SearchBox';
 interface NotesClientProps {
   initialPage: number,
   initialQuery: string,
-  initalTag: string | undefined
+  initialTag: string | undefined
 }
 
-export default function NotesClient({ initialPage = 1, initialQuery = '', initalTag = undefined }: NotesClientProps) {
+export default function NotesClient({ initialPage = 1, initialQuery = '', initialTag = undefined }: NotesClientProps) {
   const [page, setPage] = useState(initialPage);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [searchQuery, setSearchQuery] = useState<string>(initialQuery);
-  const [tag] = useState<string | undefined>(initalTag)
+  const [tag] = useState<string | undefined>(initialTag)
 
   const [debouncedQuery] = useDebounce(searchQuery, 500);
 
