@@ -14,7 +14,7 @@ interface NotePreviewProps {
 export default function NotePreviewClient({ id }: NotePreviewProps) {
     const router = useRouter()
     const {data, isSuccess, isLoading, isError, error } = useQuery({
-        queryKey: ["NotePreview", id],
+        queryKey: ["note", id],
         queryFn: () => fetchNoteById(id),
         refetchOnMount: false,
         placeholderData: keepPreviousData,
@@ -31,7 +31,9 @@ export default function NotePreviewClient({ id }: NotePreviewProps) {
             {isSuccess && 
             <Modal onClose={onClose}>
                 <h2>{data.title}</h2>
-                <p>{data.content}</p>
+                    <p>{data.content}</p>
+                    <p>{data.tag}</p>
+                    <p>{data.createdAt}</p>
                 <button onClick={() => router.back()}>Close</button>    
             </Modal>}
             {isError &&
